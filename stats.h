@@ -1,17 +1,14 @@
 #include <vector>
 
 namespace Statistics {
-	// define the Stats structure here. See the tests to infer its properties
+
 	struct Stats
 	{
 		double average;
 		double max;
 		double min;
 
-		Stats() :average(0.0), max(0.0), min(0.0)
-		{
-
-		}
+		Stats();
 
 		double Average(const std::vector<double>&);
 		double Maximum(const std::vector<double>&);
@@ -25,37 +22,31 @@ class IAlerter
 {
 public:
 	virtual bool alert(bool) = 0;
+	virtual ~IAlerter();
 };
 
 class EmailAlert : public IAlerter
 {
 public:
-	EmailAlert() :emailSent(false)
-	{
-
-	}
-
 	bool emailSent;
-
-	bool alert(bool alerSignal);
+public:
+	EmailAlert();
+	bool alert(bool alerSignal) override;
 };
 
 class LEDAlert : public IAlerter
 {
 public:
-	LEDAlert() :ledGlows(false)
-	{
-
-	}
-
 	bool ledGlows;
-
-	bool alert(bool alertSignal);
+public:
+	LEDAlert();
+	bool alert(bool alertSignal) override;
 };
 
 
 class StatsAlerter
 {
+private:
 	std::vector<IAlerter*> alerters;
 	double maxThreshold;
 
@@ -64,3 +55,4 @@ public:
 
 	void checkAndAlert(const std::vector<double>&);
 };
+

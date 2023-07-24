@@ -1,6 +1,5 @@
-#include "pch.h"
 #include "stats.h"
-
+#include <algorithm>
 #include <functional>
 
 Statistics::Stats Statistics::ComputeStatistics(const std::vector<double>& vec) {
@@ -21,6 +20,10 @@ Statistics::Stats Statistics::ComputeStatistics(const std::vector<double>& vec) 
 	return stats;
 }
 
+Statistics::Stats::Stats() :average(0.0), max(0.0), min(0.0)
+{
+}
+
 double Statistics::Stats::Average(const std::vector<double>& vec)
 {
 	double avg = 0.0;
@@ -31,7 +34,7 @@ double Statistics::Stats::Average(const std::vector<double>& vec)
 		sum += x;
 	}
 
-	avg = sum / vec.size();
+	avg = sum / double(vec.size());
 	return avg;
 }
 
@@ -51,10 +54,18 @@ double Statistics::Stats::Minimum(const std::vector<double>& vec)
 	return minele;
 }
 
+EmailAlert::EmailAlert() :emailSent(false)
+{
+}
+
 bool EmailAlert::alert(bool alerSignal)
 {
 	emailSent = alerSignal;
 	return emailSent;
+}
+
+LEDAlert::LEDAlert() :ledGlows(false)
+{
 }
 
 bool LEDAlert::alert(bool alertSignal)
@@ -63,10 +74,10 @@ bool LEDAlert::alert(bool alertSignal)
 	return alertSignal;
 }
 
-StatsAlerter::StatsAlerter(double maxThreshold, std::vector<IAlerter*> alerters)
+StatsAlerter::StatsAlerter(double maxThreshold, std::vector<IAlerter*> Alerters)
 {
 	this->maxThreshold = maxThreshold;
-	this->alerters = alerters;
+	this->alerters = Alerters;
 }
 
 void StatsAlerter::checkAndAlert(const std::vector<double>& vec)
@@ -81,3 +92,8 @@ void StatsAlerter::checkAndAlert(const std::vector<double>& vec)
 		}
 	}
 }
+
+IAlerter::~IAlerter()
+{
+}
+
