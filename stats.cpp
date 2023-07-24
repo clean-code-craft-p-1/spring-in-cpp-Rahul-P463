@@ -1,5 +1,6 @@
 #include "stats.h"
 #include <algorithm>
+#include <limits>
 #include <functional>
 #define CUSTOM_NAN (std::numeric_limits<double>::quiet_NaN())
 
