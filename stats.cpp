@@ -1,15 +1,16 @@
 #include "stats.h"
 #include <algorithm>
 #include <functional>
+#define CUSTOM_NAN (std::numeric_limits<double>::quiet_NaN())
 
 Statistics::Stats Statistics::ComputeStatistics(const std::vector<double>& vec) {
 	Statistics::Stats stats;
 
 	if (vec.empty())
 	{
-		stats.average = std::nan("");
-		stats.max = std::nan("");
-		stats.min = std::nan("");
+		stats.average = CUSTOM_NAN;
+		stats.max = CUSTOM_NAN;
+		stats.min = CUSTOM_NAN;
 	}
 	else
 	{
