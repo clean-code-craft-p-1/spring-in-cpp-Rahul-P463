@@ -8,7 +8,7 @@ namespace Statistics {
 		double max;
 		double min;
 
-		Stats() :average(0.0), max(INT_MIN), min(INT_MAX)
+		Stats() :average(0.0), max(0.0), min(0.0)
 		{
 
 		}
